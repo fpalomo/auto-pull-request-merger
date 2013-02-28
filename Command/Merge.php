@@ -2,6 +2,7 @@
 namespace Command;
 
 use \Library\GitHub;
+use \Library\HipChat;
 use \Config;
 use \App;
 
@@ -320,6 +321,25 @@ class Merge
 
         return $jiraIssue;
 
+    }
+
+    /**
+     * Send a message to a hipChat room using a concret user
+     * @param string  $message
+     * @param string  $room
+     * @param string  $user
+     */
+    protected function _sendMessageToHipChat($message,$room=null,$user=null)
+    {
+        $token = $this->config->get('hipchat_token');
+        $hc = new HipChat\HipChat($token);
+        if (empty($room)) {
+            $room = $this->config->get('hipchat_room');
+        }
+        if (empty($user)) {
+            $user = $this->config->get('hipchat_user');
+        }
+        $hc->message_room($room, $user, $message);
     }
 
     private function _isACodeReviewOK($comment)
