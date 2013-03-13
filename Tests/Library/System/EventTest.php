@@ -16,7 +16,6 @@ class EventTest extends BaseTestDefinition
 
 
         $testEvent = "test_event_title";
-        $foundEvent = false;
         $systemEvent = new \Library\System\Event;
         $originalEventCount = count($systemEvent->inPlace());
         $systemEvent->add($testEvent);
