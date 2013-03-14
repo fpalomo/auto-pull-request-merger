@@ -67,8 +67,8 @@ class App
 
     public function loadModules()
     {
-        foreach (Listener\All::inPlace() as $module) {
-            $this->loadListener($module);
+        foreach (Listener\All::inPlace() as $module => $constructorDependencies) {
+            $this->loadListener($module, $constructorDependencies);
         }
     }
 
@@ -80,10 +80,18 @@ class App
         return self::singleton()->_container;
     }
 
-    public function loadListener($module)
+    public function loadListener($module, $constructorDependencies)
     {
 
-        $moduleObject = new $module;
+        $reflect = new ReflectionClass($module);
+        if (!empty($constructorDependencies)) {
+            foreach($constructorDependencies as $dependency){
+                $constructorDependencyObjects[] = new $dependency;
+            }
+            $moduleObject = $reflect->newInstanceArgs($constructorDependencyObjects);
+        } else {
+            $moduleObject = new $module;
+        }
         $this->registerObserver($module, $moduleObject->eventList());
     }
 
