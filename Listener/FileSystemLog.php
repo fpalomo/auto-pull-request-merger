@@ -3,9 +3,34 @@
 namespace Listener;
 
 use App;
+use Library\System;
 
 class FileSystemLog
 {
+
+    protected $systemDateTime = null;
+
+    protected $outputFile = null;
+
+    public function __construct(\Library\System\SystemDateTime $systemDateTime = null, $outputFile  = null  )
+    {
+        if ($systemDateTime !== null) {
+            $this->systemDateTime = $systemDateTime;
+        } else {
+            $this->systemDateTime = new SystemDateTime();
+        }
+
+        if ($outputFile)
+        {
+            $this->outputFile = $outputFile;
+        }
+        else{
+            $this->outputFile = App::config("file_system_log_path");
+        }
+    }
+
+
+
     public function eventList()
     {
         return array(
@@ -16,12 +41,11 @@ class FileSystemLog
 
     public function printLn($message)
     {
-        $messageLine = "[" . date("Y-m-d H:i:s") . "] $message\n";
-        if (true === file_put_contents(App::config("file_system_log_path"), $messageLine, FILE_APPEND)) {
+        $messageLine = "[" . $this->systemDateTime->now() . "] $message\n";
+        if (true === file_put_contents($this->outputFile, $messageLine, FILE_APPEND)) {
             return true;
         }
 
     }
 
 }
-
