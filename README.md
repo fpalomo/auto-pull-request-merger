@@ -13,6 +13,7 @@ and myself
 USAGE:
 
 ./auto-merge \<GitHubUser\> \<GitHubPassword\> \<owner\> \<repo\> OR
+
 ./auto-merge  , when config/config.yaml contains the required parameters.
 
 all parameters can be set at Commands/Merge.php
