@@ -12,7 +12,7 @@ and myself
 
 USAGE:
 
-php mergePullRequest.php \<GitHubUser\> \<GitHubPassword\> \<owner\> \<repo\>
+./auto-merge \<GitHubUser\> \<GitHubPassword\> \<owner\> \<repo\>
 
 all parameters can be set at Commands/Merge.php
 
