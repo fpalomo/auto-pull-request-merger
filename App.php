@@ -13,6 +13,8 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 class App
 {
 
+    protected $debug = false;
+
     protected $classLoader;
 
     /**
@@ -33,10 +35,10 @@ class App
 
     protected $testMode = false;
 
-    public function __construct($configFile = "Config/config.yaml", $testMode = false)
+    public function __construct($configFile = "Config/config.yaml", $testMode = false, $debug = false)
     {
 
-
+        $this->debug = $debug;
         $classLoader = new UniversalClassLoader();
         $classLoader->useIncludePath(true);
         $classLoader->registerNamespaces(
@@ -85,7 +87,7 @@ class App
 
         $reflect = new ReflectionClass($module);
         if (!empty($constructorDependencies)) {
-            foreach($constructorDependencies as $dependency){
+            foreach ($constructorDependencies as $dependency) {
                 $constructorDependencyObjects[] = new $dependency;
             }
             $moduleObject = $reflect->newInstanceArgs($constructorDependencyObjects);
@@ -115,6 +117,9 @@ class App
 
     public function dispatch($event, $params = null)
     {
+        if ($this->debug) {
+            $this->log("Dispatched event $event");
+        }
         if (isset($this->listener[$event])) {
             foreach ($this->listener[$event] as $class => $method) {
                 $obj = new $class;
