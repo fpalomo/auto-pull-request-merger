@@ -10,6 +10,7 @@ Adrià Cidre, https://github.com/adriacidre
 Natxo Treig, https://github.com/natxetee
 and myself
 
+
 USAGE:
 
 ./auto-merge \<GitHubUser\> \<GitHubPassword\> \<owner\> \<repo\> OR
