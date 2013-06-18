@@ -6,6 +6,7 @@ require_once __DIR__ . "/../../BaseTestDefinition.php";
 
 use Library\GitHub;
 use Phake;
+use Library\System;
 
 class GitHubAdapterTest extends \Tests\BaseTestDefinition
 {
@@ -138,7 +139,7 @@ class GitHubAdapterTest extends \Tests\BaseTestDefinition
         );
 
         Phake::verify($this->app)->dispatch("log", "Merged pull $number");
-        Phake::verify($this->app)->dispatch("pull_request_merged", null);
+        Phake::verify($this->app)->dispatch(System\Event::PULL_REQUEST_MERGED, null);
         $this->assertEquals("This is a test with verifications", "This is a test with verifications");
     }
 
@@ -175,7 +176,7 @@ class GitHubAdapterTest extends \Tests\BaseTestDefinition
             \Library\GitHub\GitHubApi::AUTH_HTTP
         );
 
-        Phake::verify($this->app)->dispatch("cannot_merge_pull_request", $exceptionMessage);
+        Phake::verify($this->app)->dispatch(System\Event::CANNOT_MERGE_PULL_REQUEST, $exceptionMessage);
         $this->assertEquals("This is a test with verifications", "This is a test with verifications");
     }
 

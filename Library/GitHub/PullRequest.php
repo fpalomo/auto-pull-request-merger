@@ -3,6 +3,7 @@
 namespace Library\GitHub;
 
 use App;
+use Library\System;
 
 class PullRequest
 {
@@ -26,7 +27,7 @@ class PullRequest
     {
         $canBeMerged = false;
         if ($this->hasPassedCodeReview()) {
-            App::dispatchEvent("code_review_passed", array($this->number));
+            App::dispatchEvent(System\Event::CODE_REVIEW_PASSED, array("pr_number" => $this->number));
             if ($this->hasPassedUAT()) {
                 App::dispatchEvent("pull_request_can_be_merged");
 

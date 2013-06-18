@@ -3,6 +3,7 @@
 Namespace Library\GitHub;
 
 use App;
+use Library\System;
 
 class GitHubAdapter extends \Library\Base
 {
@@ -124,10 +125,10 @@ class GitHubAdapter extends \Library\Base
                 )
             );
             App::log("Merged pull $number");
-            App::dispatchEvent("pull_request_merged");
+            App::dispatchEvent(System\Event::PULL_REQUEST_MERGED);
 
         } catch (\Exception $e) {
-            App::dispatchEvent("cannot_merge_pull_request", $e->getMessage());
+            App::dispatchEvent(System\Event::CANNOT_MERGE_PULL_REQUEST, $e->getMessage());
         }
 
     }

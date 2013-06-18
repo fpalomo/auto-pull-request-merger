@@ -8,14 +8,23 @@ namespace Library\System;
 class Event extends \Library\System\SingleData
 {
 
+    const CANNOT_MERGE_PULL_REQUEST = 1001;
+    const CODE_REVIEW_PASSED = 1002;
+    const PULL_REQUEST_MERGED = 1003;
+    const TOO_MANY_OPEN_PULL_REQUESTS = 1004;
+    const NO_PULL_REQUESTS_TO_PARSE = 1005;
+    const CODE_REVIEW_FAILED = 1006;
+    const LOG = "log";
+
+
     // generic events thrown by the application
     protected static $data = array(
-        'cannot_merge_pull_request',
-        'pull_request_merged',
-        'too_many_open_pull_requests',
-        'no_pull_requests_to_parse',
-        'code_review_passed',
-        'code_review_failed',
+        self::CANNOT_MERGE_PULL_REQUEST,
+        self::PULL_REQUEST_MERGED,
+        self::TOO_MANY_OPEN_PULL_REQUESTS,
+        self::NO_PULL_REQUESTS_TO_PARSE,
+        self::CODE_REVIEW_PASSED,
+        self::CODE_REVIEW_FAILED,
         'log'
     );
 

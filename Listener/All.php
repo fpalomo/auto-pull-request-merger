@@ -9,9 +9,11 @@ class All extends \Library\System\SingleData
 {
 
     protected static $data = array(
-        'Listener\ListenerHipChat' => null,
+        'Listener\ListenerHipChat'       => null,
         'Listener\ListenerFileSystemLog' => array("\Library\System\SystemDateTime"),
-        'Listener\ListenerScreenLog' => array("\Library\System\SystemDateTime")
+        'Listener\ListenerScreenLog'     => array("\Library\System\SystemDateTime"),
+
+//        'Listener\Environment\UAT'        => null,
     );
 
 

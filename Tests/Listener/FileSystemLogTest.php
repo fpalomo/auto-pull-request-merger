@@ -27,7 +27,7 @@ class FileSystemLogTest extends \Tests\BaseTestDefinition
             ->thenReturn($now);
 
 
-        $fileSystemLog = new Listener\FileSystemLog($systemDateTimeMock, $outputFileName);
+        $fileSystemLog = new Listener\ListenerFileSystemLog($systemDateTimeMock, $outputFileName);
 
         $fileSystemLog->printLn($message);
 

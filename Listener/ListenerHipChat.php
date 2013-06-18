@@ -2,6 +2,7 @@
 
 namespace Listener;
 use Library\HipChat;
+use Library\System;
 
 class ListenerHipChat implements ListenerInterface
 {
@@ -10,7 +11,7 @@ class ListenerHipChat implements ListenerInterface
     {
         // array ("eventName" => "methodToExecute"
         return array(
-            "too_many_open_pull_requests" => 'tooManyOpenPullRequests'
+            System\Event::TOO_MANY_OPEN_PULL_REQUESTS => 'tooManyOpenPullRequests'
         );
     }
 
