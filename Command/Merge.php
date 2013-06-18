@@ -49,7 +49,7 @@ class Merge
         if (count($requestsList) == 0) {
             App::dispatchEvent("no_pull_requests_to_parse");
         }
-        echo ("Process finished: Parsed " . count($requestsList) . " open pull requests in $time seconds\n");
+        App::log("Process finished: Parsed " . count($requestsList) . " open pull requests in $time seconds\n");
     }
 
 

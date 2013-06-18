@@ -6,6 +6,8 @@ max_open_pull_requests: 25
 
 # this is the HipChat token of the room you want to be notified
 hipchat_token: 'e1'
+hipchat_room: 'work-room'
+hipchat_reporter_name: 'auto-merger'
 
 # this is the number of positive reviews you require to merge the pull request
 required_positive_reviews: 1
