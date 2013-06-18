@@ -30,12 +30,15 @@ class PullRequest
             App::dispatchEvent(System\Event::CODE_REVIEW_PASSED, array("pr_number" => $this->number));
             if ($this->hasPassedUAT()) {
                 App::dispatchEvent("pull_request_can_be_merged");
-
                 $canBeMerged = true;
             }
-
-            return $canBeMerged;
+        } else {
+            $canBeMerged = false;
+            App::dispatchEvent(System\Event::CODE_REVIEW_FAILED, array("pr_number" => $this->number));
         }
+
+        return $canBeMerged;
+
     }
 
     /**
