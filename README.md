@@ -18,6 +18,9 @@ USAGE:
 
 all parameters can be set at Commands/Merge.php
 
+you can also use ./auto-merge --debug if you want to see debug messages
+
+
 WARNING: THE CURRENT VERSION IS STILL WORK IN PROGRESS . PLEASE , DOWNLOAD "STABLE" TAG FOR THE LATEST STABLE VERSION
 
 
