@@ -13,7 +13,9 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 class App
 {
 
-    protected $debug = false;
+    static protected $debug = false;
+    static protected $configFile = "Config/config.yaml";
+    static protected $testMode = false;
 
     protected $classLoader;
 
@@ -33,12 +35,10 @@ class App
 
     protected $dependency = array();
 
-    protected $testMode = false;
-
-    public function __construct($configFile = "Config/config.yaml", $testMode = false, $debug = false)
+    public function __construct($configFile = null, $testMode = false, $debug = true)
     {
 
-        $this->debug = $debug;
+
         $classLoader = new UniversalClassLoader();
         $classLoader->useIncludePath(true);
         $classLoader->registerNamespaces(
@@ -55,8 +55,15 @@ class App
         $this->_config = new \Config\Config(__DIR__ . "/" . $configFile);
         $this->loadModules();
         $this->loadDependencies();
-        $this->testMode = $testMode;
-
+        if ($configFile) {
+            self::$configFile = $configFile;
+        }
+        if($testMode){
+            self::$testMode = $testMode;
+        }
+        if($debug){
+            self::$debug = $debug;
+        }
 
     }
 
@@ -117,8 +124,8 @@ class App
 
     public function dispatch($event, $params = null)
     {
-        if ($this->debug) {
-            $this->log("Dispatched event $event");
+        if ($event != "log" && self::$debug) {
+            self::log("[DEBUG] Dispatched event $event");
         }
         if (isset($this->listener[$event])) {
             foreach ($this->listener[$event] as $class => $method) {
@@ -143,7 +150,7 @@ class App
     {
         // system log event
         if (empty(self::$_singleton)) {
-            self::$_singleton = new App();
+            self::$_singleton = new App(self::$configFile, self::$testMode, self::$debug);
         }
 
     }

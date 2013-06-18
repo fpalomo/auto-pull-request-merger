@@ -18,7 +18,7 @@ if ($argc == 2 && in_array($argv[1], array('--debug', '-debug'))) {
 //$params["owner"] = isset($argv[3]) ? $argv[3] : null;
 //$params["repo"] = isset($argv[4]) ? $argv[4] : null;
 
-$app = new App($debug);
+$app = new App(null,null, $debug );
 
 // old way
 //$merge = new Command\Merge(App::config());
