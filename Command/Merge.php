@@ -47,9 +47,6 @@ class Merge
         }
         $endTime = microtime(true);
         $time = sprintf("%0.2f", $endTime - $startTime);
-        if (count($requestsList) == 0) {
-            App::dispatchEvent(System\Event::NO_PULL_REQUESTS_TO_PARSE);
-        }
         App::log("Process finished: Parsed " . count($requestsList) . " open pull requests in $time seconds\n");
     }
 

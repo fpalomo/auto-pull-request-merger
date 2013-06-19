@@ -15,7 +15,7 @@ class GitHubAdapter extends \Library\Base
     protected $user;
     protected $password;
 
-    public function __construct( \Config\Config $config)
+    public function __construct(\Config\Config $config)
     {
         $this->config = $config;
         $this->repositoryName = $config->get("github_repository_name");
@@ -52,12 +52,17 @@ class GitHubAdapter extends \Library\Base
             if (count($prs) >= $this->config->get("max_open_pull_requests")) {
                 App::dispatchEvent("too_many_open_requests");
 
+            } else {
+                if (count($prs) == 0) {
+                    App::dispatchEvent(System\Event::NO_PULL_REQUESTS_TO_PARSE);
+                }
             }
 
             return $prs;
 
         } catch (\Exception $e) {
             App::log($e);
+
             return null;
         }
     }
