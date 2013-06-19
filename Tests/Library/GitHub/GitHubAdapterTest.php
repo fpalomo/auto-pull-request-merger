@@ -3,7 +3,6 @@
 namespace Tests;
 
 require_once __DIR__ . "/../../BaseTestDefinition.php";
-
 use Library\GitHub;
 use Phake;
 use Library\System;
@@ -15,6 +14,52 @@ class GitHubAdapterTest extends \Tests\BaseTestDefinition
     public function setUp()
     {
         parent::setUp();
+
+    }
+
+    public function testOpenPullRequestsNoOpenPR()
+    {
+        $gitHubAdapter = new \Library\GitHub\GitHubAdapter($this->config);
+
+
+        $gitHubApiMock = \Phake::mock("\\Library\\GitHub\\GitHubApi");
+        $mockedPullRequestsResponse = unserialize(
+            file_get_contents($this->fixturesPath . "pullsResponseWith0PR.txt")
+        );
+
+        Phake::when($gitHubApiMock)->get(
+            '/repos/:owner/:repo/pulls',
+            array(
+                'owner' => $this->config->get("github_repository_owner"),
+                'repo' => $this->config->get("github_repository_name")
+            )
+        )->thenReturn($mockedPullRequestsResponse);
+
+
+        \App::singleton($this->app);
+
+        $gitHubAdapter->addDependency("gitHubApi", $gitHubApiMock);
+        $gitHubAdapter->openPullRequests();
+
+        Phake::verify($gitHubApiMock)->auth(
+            $this->config->get("github_user"),
+            $this->config->get("github_password"),
+            \Library\GitHub\GitHubApi::AUTH_HTTP
+        );
+
+
+        Phake::verify($gitHubApiMock)->get(
+            '/repos/:owner/:repo/pulls',
+            array(
+                'owner' => $this->config->get("github_repository_owner"),
+                'repo' => $this->config->get("github_repository_name")
+            )
+        );
+
+        \Phake::verify($this->app)->dispatch(System\Event::NO_PULL_REQUESTS_TO_PARSE, null);
+
+        $this->assertEquals("This is a test with verifications", "This is a test with verifications");
+
 
     }
 
@@ -57,6 +102,7 @@ class GitHubAdapterTest extends \Tests\BaseTestDefinition
         $this->assertEquals("This is a test with verifications", "This is a test with verifications");
 
     }
+
 
 
     public function testOpenPullRequestsReachingMaxOpenPullRequests()
@@ -104,6 +150,7 @@ class GitHubAdapterTest extends \Tests\BaseTestDefinition
 
 
     }
+
 
 
     public function testMergeSuccess()
