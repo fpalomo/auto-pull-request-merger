@@ -14,9 +14,11 @@ Christof Damian, https://github.com/christofdamian , who already released anothe
 
 USAGE:
 
-  ./auto-merge \<GitHubUser\> \<GitHubPassword\> \<owner\> \<repo\> OR
+    ./auto-merge 
+    ./auto-merge \<GitHubUser\> \<GitHubPassword\> \<owner\> \<repo\>
 
-  ./auto-merge  , when config/config.yaml contains the required parameters.
+  The first option will work if you have set all the required parameters in the config file, find it at Config/config.yaml
+    
 
 all parameters can be set at Commands/Merge.php
   
