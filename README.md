@@ -17,21 +17,17 @@ USAGE:
     ./auto-merge 
     ./auto-merge \<GitHubUser\> \<GitHubPassword\> \<owner\> \<repo\>
 
-  The first option will work if you have set all the required parameters in the config file, find it at Config/config.yaml
-    
+  The first option will work if you have set all the required parameters in the config file, find it at Config/config.yaml .
+  you can also run the tool in debug mode:
 
-all parameters can be set at Commands/Merge.php
-  
-  you can also use ./auto-merge --debug if you want to see debug messages
+    ./auto-merge --debug
 
 
-WARNING: THE CURRENT VERSION IS STILL WORK IN PROGRESS . PLEASE , DOWNLOAD "STABLE" TAG FOR THE LATEST STABLE VERSION
-
-
-
-How to extend functionalities
+How to create new functionalities
 =====
 
-You can define listener to system events at Listener\All.php
+The system is based in events that are dispatched under some circunstances. You can add new listeners defining them at Listener\All.php .
 
-If your new classes have dependencies, please define this dependencies with a new file in "Dependency" directory
+If you need to add a new event, you can define it at Library\System\Event.php .
+
+If your new class constructor have dependencies, please define this dependencies with a new file in "Dependency" directory . 
