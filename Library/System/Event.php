@@ -8,12 +8,12 @@ namespace Library\System;
 class Event extends \Library\System\SingleData
 {
 
-    const CANNOT_MERGE_PULL_REQUEST = 1001;
-    const CODE_REVIEW_PASSED = 1002;
-    const PULL_REQUEST_MERGED = 1003;
-    const TOO_MANY_OPEN_PULL_REQUESTS = 1004;
-    const NO_PULL_REQUESTS_TO_PARSE = 1005;
-    const CODE_REVIEW_FAILED = 1006;
+    const CANNOT_MERGE_PULL_REQUEST = "cannot_merge_pr";
+    const CODE_REVIEW_PASSED = "code_review_OK";
+    const PULL_REQUEST_MERGED = "pr_merged";
+    const TOO_MANY_OPEN_PULL_REQUESTS = "too_many_open_pr";
+    const NO_PULL_REQUESTS_TO_PARSE = "no_pr_to_parse";
+    const CODE_REVIEW_FAILED = "code_review_KO";
     const LOG = "log";
 
 
