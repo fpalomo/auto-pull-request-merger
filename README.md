@@ -4,7 +4,6 @@ This simple script will parse every open pull request in a given GitHub reposito
 successful by your CI tool , and also if it has passed your code review process. ( Usually by adding any special character as a comment )
 
 
-
 This is a tool that came out after some work from the guys at Splendia back in 2012, specially :
 =====
 Adrià Cidre, https://github.com/adriacidre
