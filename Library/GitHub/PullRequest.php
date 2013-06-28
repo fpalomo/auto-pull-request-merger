@@ -26,15 +26,16 @@ class PullRequest
     public function canBeMerged()
     {
         $canBeMerged = false;
+        App:log("Checking if pull request $this->number can be merged");
         if ($this->hasPassedCodeReview()) {
             App::dispatchEvent(System\Event::CODE_REVIEW_PASSED, array("pr_number" => $this->number));
             if ($this->hasPassedUAT()) {
-                App::dispatchEvent("pull_request_can_be_merged");
+                App::dispatchEvent(System\Event::CAN_MERGE_PULL_REQUEST, array("pr_number" => $this->number));
                 $canBeMerged = true;
             }
         } else {
             $canBeMerged = false;
-            App::dispatchEvent(System\Event::CODE_REVIEW_FAILED, array("pr_number" => $this->number));
+            App::dispatchEvent(System\Event::CANNOT_MERGE_PULL_REQUEST, array("pr_number" => $this->number));
         }
 
         return $canBeMerged;
@@ -121,6 +122,7 @@ class PullRequest
     public function merge()
     {
         $this->gitHubAdapter->merge($this->number);
+        App::log("merging pull request $this->number");
         App::dispatchEvent("merged_pull_request", array($this->number));
     }
 

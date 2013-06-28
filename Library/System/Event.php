@@ -9,6 +9,7 @@ class Event extends \Library\System\SingleData
 {
 
     const CANNOT_MERGE_PULL_REQUEST = "cannot_merge_pr";
+    const CAN_MERGE_PULL_REQUEST = "can_merge_pr";
     const CODE_REVIEW_PASSED = "code_review_OK";
     const PULL_REQUEST_MERGED = "pr_merged";
     const TOO_MANY_OPEN_PULL_REQUESTS = "too_many_open_pr";

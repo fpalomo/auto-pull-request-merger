@@ -19,8 +19,11 @@ class Merge
         $this->_client = new \Library\GitHub\GitHubApi(new  \Library\GitHub\GitHubCurl());
         $this->gitHubAdapter = new \Library\GitHub\GitHubAdapter(
             App::config()
-        ) ;
-        $this->gitHubAdapter->addDependency("gitHubApi", new \Library\GitHub\GitHubApi(new \Library\GitHub\GitHubCurl()));
+        );
+        $this->gitHubAdapter->addDependency(
+            "gitHubApi",
+            new \Library\GitHub\GitHubApi(new \Library\GitHub\GitHubCurl())
+        );
 
     }
 
@@ -40,8 +43,10 @@ class Merge
         for ($i = count($requestsList) - 1; $i >= 0; $i--) {
             $pullRequest = new \Library\GitHub\PullRequest($this->gitHubAdapter, $requestsList[$i]);
 
-            if ($pullRequest->canBeMerged()){
+            if ($pullRequest->canBeMerged()) {
                 $pullRequest->merge();
+            } else {
+                App::log("Pull request cannot be merged");
             }
 
         }
@@ -49,9 +54,6 @@ class Merge
         $time = sprintf("%0.2f", $endTime - $startTime);
         App::log("Process finished: Parsed " . count($requestsList) . " open pull requests in $time seconds\n");
     }
-
-
-
 
 
 }
