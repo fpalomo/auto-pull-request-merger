@@ -64,7 +64,7 @@ class PullRequest
 
         $forceConfirmation = App::config()->get("force_build_confirmation");
         if (!$this->buildIsOk() and $forceConfirmation) {
-            App::log("Pull request " . $this->number . " has no build success confirmation message \n");
+            App::log("Pull request " . $this->number . " has no build success confirmation message");
 
             return false;
         }
@@ -87,7 +87,7 @@ class PullRequest
             return true;
         }
 
-        App::log("Pull request " . $this->number . " has only $pluses positive reviews\n");
+        App::log("Pull request " . $this->number . " has only $pluses positive reviews");
 
     }
 

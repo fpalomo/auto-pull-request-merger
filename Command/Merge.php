@@ -42,7 +42,7 @@ class Merge
         $requestsList = $this->gitHubAdapter->openPullRequests();
         for ($i = count($requestsList) - 1; $i >= 0; $i--) {
             $pullRequest = new \Library\GitHub\PullRequest($this->gitHubAdapter, $requestsList[$i]);
-
+            App::log("--");
             if ($pullRequest->canBeMerged()) {
                 $pullRequest->merge();
             } else {
