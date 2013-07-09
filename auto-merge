@@ -1,6 +1,6 @@
 #!/usr/bin/env php
 <?php
-
+date_default_timezone_set("Europe/Madrid");
 require_once __DIR__ . "/App.php";
 
 

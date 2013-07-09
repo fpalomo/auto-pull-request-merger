@@ -46,7 +46,7 @@ class Merge
             if ($pullRequest->canBeMerged()) {
                 $pullRequest->merge();
             } else {
-                App::log("Pull request cannot be merged");
+                App::log("Pull request ". $pullRequest->getId() ." cannot be merged");
             }
 
         }

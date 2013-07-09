@@ -26,7 +26,7 @@ class PullRequest
     public function canBeMerged()
     {
         $canBeMerged = false;
-        App:log("Checking if pull request $this->number can be merged");
+        App::log("Checking if pull request $this->number can be merged");
         if ($this->hasPassedCodeReview()) {
             App::dispatchEvent(System\Event::CODE_REVIEW_PASSED, array("pr_number" => $this->number));
             if ($this->hasPassedUAT()) {
@@ -87,10 +87,6 @@ class PullRequest
             return true;
         }
 
-        $this->_addCommentToPullRequest(
-            $this->number,
-            "Will not merge pull request " . $this->number . ",only $pluses positive reviews"
-        );
         App::log("Pull request " . $this->number . " has only $pluses positive reviews\n");
 
     }
@@ -144,6 +140,12 @@ class PullRequest
 
         return $issueNumber;
 
+    }
+
+
+    public function getId()
+    {
+        return $this->number;
     }
 
 }
