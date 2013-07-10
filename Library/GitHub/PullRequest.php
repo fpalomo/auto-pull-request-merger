@@ -29,9 +29,13 @@ class PullRequest
         App::log("Checking if pull request $this->number can be merged");
         if ($this->hasPassedCodeReview()) {
             App::dispatchEvent(System\Event::CODE_REVIEW_PASSED, array("pr_number" => $this->number));
-            if ($this->hasPassedUAT()) {
-                App::dispatchEvent(System\Event::CAN_MERGE_PULL_REQUEST, array("pr_number" => $this->number));
-                $canBeMerged = true;
+            $canBeMerged = true;
+            $uatIsRequired = App::config()->get("uat_is_required_to_merge");
+            if ($uatIsRequired) {
+                if ($this->hasPassedUAT()) {
+                    App::dispatchEvent(System\Event::CAN_MERGE_PULL_REQUEST, array("pr_number" => $this->number));
+                    $canBeMerged = true;
+                }
             }
         } else {
             $canBeMerged = false;

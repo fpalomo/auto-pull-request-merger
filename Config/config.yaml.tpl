@@ -15,6 +15,8 @@ required_positive_reviews: 1
 valid_positive_code_review_messages: [':+1:', '+1']
 # any of these characters in a comment will be considered a negative code review comment
 valid_blocker_code_review_messages: ["[B]", "[b]" ]
+# is uat ok message required to merge?
+uat_is_required_to_merge: 0
 # any of these characters in a comment will be considered a UAT OK from the product owner
 valid_uat_ok_messages: ["UAT OK"]
 
