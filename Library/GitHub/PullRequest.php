@@ -51,7 +51,7 @@ class PullRequest
      */
     public function comments()
     {
-        $this->pullRequestComments = null;
+        $this->pullRequestComments = array();
         $comments = $this->gitHubAdapter->pullRequestComments($this->number);
         foreach ($comments as $pullRequestCommentApiObj) {
             $this->pullRequestComments[] = new PullRequestComment($pullRequestCommentApiObj);
