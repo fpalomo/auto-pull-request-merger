@@ -19,8 +19,13 @@
         </testsuite>
     </testsuites>
     <logging>
-        <log type="coverage-html" target="./coverage" title="Kazan/Articler"
+        <log type="coverage-html" target="./coverage"
             charset="UTF-8" highlight="true"
             lowUpperBound="45" highLowerBound="90" />
     </logging>
+    <filter>
+        <blacklist>
+            <directory suffix=".php">./vendor/</directory>
+        </blacklist>
+    </filter>
 </phpunit>
