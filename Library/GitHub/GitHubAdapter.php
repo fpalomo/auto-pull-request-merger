@@ -113,21 +113,19 @@ class GitHubAdapter extends \Library\Base
     }
 
 
-    public function merge($number)
+    public function merge($number, $message = 'merged automatically')
     {
 
         try {
             $this->auth();
             $this->_gitHubApi->put(
                 '/repos/:owner/:repo/pulls/:number/merge',
-                array(
-                    'owner' => $this->repositoryOwner,
-                    'repo' => $this->repositoryName,
-                    'number' => $number
-                ),
-                array(
-                    'message' => 'merged automatically',
-                )
+                [
+                    'owner'     => $this->repositoryOwner,
+                    'repo'      => $this->repositoryName,
+                    'number'    => $number
+                ],
+                [ 'message' => $message ]
             );
             App::log("Merged pull $number");
             App::dispatchEvent(System\Event::PULL_REQUEST_MERGED);
@@ -136,6 +134,21 @@ class GitHubAdapter extends \Library\Base
             App::dispatchEvent(System\Event::CANNOT_MERGE_PULL_REQUEST, $e->getMessage());
         }
 
+    }
+
+    public function removeBranch($ref)
+    {
+        $this->auth();
+        $this->_gitHubApi->delete(
+            '/repos/:owner/:repo/git/refs/:ref',
+            [
+                'owner'     => $this->repositoryOwner,
+                'repo'      => $this->repositoryName,
+                'number'    => $ref
+            ]
+        );
+        App::log("Deleted branch $ref");
+        App::dispatchEvent(System\Event::PULL_REQUEST_MERGED);
     }
 
     public function addComment($number, $message)

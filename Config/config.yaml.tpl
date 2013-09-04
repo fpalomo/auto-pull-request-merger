@@ -19,6 +19,8 @@ valid_blocker_code_review_messages: ["[B]", "[b]" ]
 uat_is_required_to_merge: 0
 # any of these characters in a comment will be considered a UAT OK from the product owner
 valid_uat_ok_messages: ["UAT OK"]
+# will merge with uat ok message
+merge_with_uat_message: 1
 
 # GitHub repository info
 github_user: 'myUser'

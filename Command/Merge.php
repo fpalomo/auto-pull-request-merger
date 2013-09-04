@@ -45,6 +45,7 @@ class Merge
             App::log("--");
             if ($pullRequest->canBeMerged()) {
                 $pullRequest->merge();
+                $pullRequest->removeBranch();
             } else {
                 App::log("Pull request ". $pullRequest->getId() ." cannot be merged");
             }

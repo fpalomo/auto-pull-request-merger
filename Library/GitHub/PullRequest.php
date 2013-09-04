@@ -121,7 +121,8 @@ class PullRequest
 
     public function merge()
     {
-        $this->gitHubAdapter->merge($this->number);
+        $message = $this->getMergeMessage();
+        $this->gitHubAdapter->merge($this->number, $message);
         App::log("merging pull request $this->number");
         App::dispatchEvent("merged_pull_request", array($this->number));
     }
@@ -146,10 +147,26 @@ class PullRequest
 
     }
 
+    public function removeBranch()
+    {
+        $this->gitHubAdapter->removeBranch($this->apiPullRequest->head->ref);
+    }
 
     public function getId()
     {
         return $this->number;
+    }
+
+    protected function getMergeMessage()
+    {
+        $message = 'merged automatically';
+        if (App::config()->get("issue_tracker_number_format")) {
+            $trackerNumber = $this->findIssueTrackerNumber();
+            if ($trackerNumber) {
+                $message = $trackerNumber . ' #UAT-OK';
+            }
+        }
+        return $message;
     }
 
 }
