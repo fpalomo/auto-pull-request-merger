@@ -136,6 +136,21 @@ class GitHubAdapter extends \Library\Base
 
     }
 
+    public function removeBranch($ref)
+    {
+        $this->auth();
+        $this->_gitHubApi->delete(
+            '/repos/:owner/:repo/git/refs/:ref',
+            [
+                'owner'     => $this->repositoryOwner,
+                'repo'      => $this->repositoryName,
+                'number'    => $ref
+            ]
+        );
+        App::log("Deleted branch $ref");
+        App::dispatchEvent(System\Event::PULL_REQUEST_MERGED);
+    }
+
     public function addComment($number, $message)
     {
         $this->auth();

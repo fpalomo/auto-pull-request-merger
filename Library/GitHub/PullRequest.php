@@ -147,6 +147,10 @@ class PullRequest
 
     }
 
+    public function removeBranch()
+    {
+        $this->gitHubAdapter->removeBranch($this->apiPullRequest->head->ref);
+    }
 
     public function getId()
     {
